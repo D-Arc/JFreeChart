@@ -1,21 +1,22 @@
 package demo;
-import java.awt.Color;
-import java.awt.Font;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.ui.RectangleInsets;
+
+import java.awt.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class CreateJFreeChart {
 
@@ -33,7 +34,7 @@ public class CreateJFreeChart {
 		//设置背景颜色
 		chart.setBackgroundPaint(Color.WHITE);
 		//配置字体  
-        Font xfont = new Font("宋体",Font.TRUETYPE_FONT,12) ;// X轴字体
+        Font xfont = new Font("宋体",Font.TRUETYPE_FONT,8) ;// X轴字体
         Font yfont = new Font("SansSerif",Font.TRUETYPE_FONT,12) ;// Y轴字体
         Font legendFont = new Font("宋体",Font.PLAIN,12) ;//图例标题字体
         Font titleFont = new Font("隶书", Font.BOLD , 25) ; // 图片标题  
@@ -50,18 +51,22 @@ public class CreateJFreeChart {
 		
 		//图形的绘制结构对象  
 		CategoryPlot categoryplot = (CategoryPlot) chart.getPlot();
+
+		categoryplot.setDomainAxisLocation(AxisLocation.TOP_OR_RIGHT);
+		categoryplot.setRangeAxisLocation(AxisLocation.TOP_OR_RIGHT);
+
 		// x轴 分类轴网格是否可见
-		categoryplot.setDomainGridlinesVisible(true);
+		categoryplot.setDomainGridlinesVisible(false);//(true);
 		// y轴  数据轴网格是否可见
 		categoryplot.setRangeGridlinesVisible(true);
 		// 虚线色彩
-		categoryplot.setRangeGridlinePaint(Color.WHITE);
+		categoryplot.setRangeGridlinePaint(Color.DARK_GRAY);//WHITE);
 		// 虚线色彩
 		categoryplot.setDomainGridlinePaint(Color.WHITE);
 		//折线图的背景颜色
-		categoryplot.setBackgroundPaint(Color.lightGray);
+		categoryplot.setBackgroundPaint(Color.WHITE);//lightGray);
 		// 设置轴和面板之间的距离
-		//categoryplot.setAxisOffset(new RectangleInsets(5D, 5D, 5D, 5D));
+		categoryplot.setAxisOffset(new RectangleInsets(0D, 0D, 0D, 0D));
 
 		/********************** 横轴 x *****************/
 		CategoryAxis domainAxis = categoryplot.getDomainAxis();
@@ -83,26 +88,37 @@ public class CreateJFreeChart {
 		numberaxis.setTickLabelFont(yfont);
 		numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 		numberaxis.setAutoRangeIncludesZero(true);
+		numberaxis.setInverted(false);
 
 		// 获得renderer 注意这里是下嗍造型到lineandshaperenderer！！
 		LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer) categoryplot.getRenderer();
-		lineandshaperenderer.setBaseShapesVisible(true); // series 点（即数据点）可见
+		lineandshaperenderer.setBaseShapesVisible(false);//(true); // series 点（即数据点）可见
 		lineandshaperenderer.setBaseLinesVisible(true); // series 点（即数据点）间有连线可见
 
 		// 显示折点数据
-		lineandshaperenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-		lineandshaperenderer.setBaseItemLabelsVisible(true);
+//		lineandshaperenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+//		lineandshaperenderer.setBaseItemLabelsVisible(true);
 		
 		return chart;
 	}
 	public static void main(String args[]){
-		double [][] data = new double[][]{{533,214,614,542,724},{462,836,345,854,224},{245,614,751,332,456}};
+		double [][] data = new double[][]{{533,214,614,542,724,533,214,614,542,724,533,214,614,542,724,533,214,614,542,724,533,214,614,542,724,533,214,614,542,724,533,214,614,542,724,533,214,614,542,724,533,214,614,542,724},
+				{462,836,345,854,224,245,614,751,332,456,245,614,751,332,456,245,614,751,332,456,245,614,751,332,456,245,614,751,332,456,245,614,751,332,456,245,614,751,332,456,245,614,751,332,456},
+				{245,614,751,332,456,462,836,345,854,224,462,836,345,854,224,462,836,345,854,224,462,836,345,854,224,462,836,345,854,224,462,836,345,854,224,462,836,345,854,224,462,836,345,854,224}};
 		String[] rowKeys = {"宝马","奔驰","大众"};
-		String[] columnKeys = {"北京", "上海", "广州", "成都", "深圳"};
+		String[] columnKeys = {"北京", "上海", "广州", "成都", "深圳",
+				"北京1", "上海1", "广州1", "成都1", "深圳1",
+				"北京2", "上海2", "广州2", "成都2", "深圳2",
+				"北京3", "上海3", "广州3", "成都3", "深圳3",
+				"北京4", "上海4", "广州4", "成都4", "深圳4",
+				"北京5", "上海5", "广州5", "成都5", "深圳5",
+				"北京6", "上海6", "广州6", "成都6", "深圳6",
+				"北京7", "上海7", "广州7", "成都7", "深圳7",
+				"北京8", "上海8", "广州8", "成都8", "深圳8"};
 		CategoryDataset dataset = DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
 		try {
-			FileOutputStream fos = new FileOutputStream("e:/test/abc.png");
-			ChartUtilities.writeChartAsPNG(fos, new CreateJFreeChart().makeLineAndShapeChart("各地汽车销量", "城市", "销量", dataset), 800, 600);
+			FileOutputStream fos = new FileOutputStream("c:/uploadFiles/abc.png");
+			ChartUtilities.writeChartAsPNG(fos, new CreateJFreeChart().makeLineAndShapeChart("各地汽车销量", "城市", "销量", dataset), 500, 380);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
