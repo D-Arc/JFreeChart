@@ -111,7 +111,7 @@ public class XYLineChartTest {
         try {
             //BufferedImage img = new CreateJFreeChart().makeLineAndShapeChart("", "里程(km)", "TQI", createDataset()).createBufferedImage(640, 360);
             FileOutputStream fos = new FileOutputStream("c:/uploadFiles/abc.png");
-            ChartUtilities.writeChartAsPNG(fos, new CreateJFreeChart().makeLineAndShapeChart("", "里程(km)", "TQI", createDataset()), 640, 360);
+            ChartUtilities.writeChartAsPNG(fos, new XYLineChartTest().makeLineAndShapeChart("", "里程(km)", "TQI", createDataset()), 640, 360);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
